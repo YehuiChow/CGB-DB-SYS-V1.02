@@ -414,10 +414,11 @@ desired effect
 <script src="dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		doLoadUI("load-dept-id","dept/dept_list");
+		doLoadUI("load-menu-id","menu/menu_list");
+		doLoadUI("load-role-id","role/role_list");
+		doLoadUI("load-user-id","user/user_list");
 		doLoadUI("load-log-id","log/log_list");
-	/* 	doLoadUI();
-		doLoadUI();
-		doLoadUI(); */
 	});
 	function doLoadUI(id,url){
 		$("#"+id).click(function(){
