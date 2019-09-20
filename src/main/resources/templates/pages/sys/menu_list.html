@@ -135,7 +135,7 @@ function doLoadEditUI(){
 		$("#mainContentId").data("rowData",rowData);
 	}
 	//2.异步加载编辑页面
-	var url="menu/doMenuEditUI";
+	var url="menu/menu_edit";
 	$("#mainContentId").load(url,function(){
 		$(".box-title").html(title);
 	});//假如"#mainContentId"这个位置有页面则replace

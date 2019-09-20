@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cy.pj.common.vo.JsonResult;
+import com.cy.pj.sys.entity.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 @RestController
@@ -24,5 +25,16 @@ public class SysMenuController {
 	public JsonResult doDeleteObject(Integer id) {
 		sysMenuService.deleteObject(id);
 		return new JsonResult("delete ok");
+	}
+	
+	@RequestMapping("doFindZtreeMenuNodes")
+	public JsonResult doFindZtreeMenuNodes() {
+		return new JsonResult(sysMenuService.findZtreeMenuNodes());
+	}
+	
+	@RequestMapping("doSaveObject")
+	public JsonResult doSaveObject(SysMenu sysMenu) {
+		sysMenuService.saveObject(sysMenu);
+		return new JsonResult("save ok");
 	}
 }
