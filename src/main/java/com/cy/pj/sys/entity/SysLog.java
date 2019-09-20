@@ -5,7 +5,7 @@ import java.util.Date;
 
 import lombok.Data;
 /**封装日志模块数据的实体类*/
-@Data
+@Data//创建setter和getter方法
 public class SysLog implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
