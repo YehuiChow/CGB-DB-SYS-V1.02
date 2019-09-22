@@ -101,7 +101,7 @@
 		}
 
 		function doCancel() {
-			$("#mainContentId").load("dept/doDeptListUI", function() {
+			$("#mainContentId").load("dept/dept_list", function() {
 				$("#mainContentId").removeData();
 				$("#parentId").removeData();
 			})
@@ -116,6 +116,11 @@
 			var insertUrl = "dept/doSaveObject";
 			var updateUrl = "dept/doUpdateObject";
 			var url = rowData ? updateUrl : insertUrl;
+			 var numrex = /^[0-9]*$/;
+			 if(!numrex.test($("#sortId").val())){
+				 alert("排序号必须为数字！");
+				 return;
+			 }
 			//3.异步提交数据
 			$.post(url, params, function(result) {
 				if (result.state == 1) {
@@ -158,7 +163,7 @@
 		function doLoadZtreeNodes() {
 			//显示div
 			$("#treeLayer").css("display", "block");
-			var url = "dept/doFindZTreeNodes";
+			var url = "dept/doFindZTreeDeptNodes";
 			//异步加载数据,并初始化数据
 			$.getJSON(url, function(result) {
 				if (result.state == 1) {

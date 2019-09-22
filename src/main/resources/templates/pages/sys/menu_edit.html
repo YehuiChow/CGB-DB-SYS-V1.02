@@ -133,6 +133,11 @@
 	 var params=doGetEditFormData();
 	 var rowData=$("#mainContentId").data("rowData");
 	 if(rowData)params.id=rowData.id;
+	 var numrex = /^[0-9]*$/;
+	 if(!numrex.test($("#sortId").val())){
+		 alert("排序号必须为数字！");
+		 return;
+	 }
 	 //2.异步提交数据到服务端
 	 var insertUrl="menu/doSaveObject";
 	 var updateUrl="menu/doUpdateObject";

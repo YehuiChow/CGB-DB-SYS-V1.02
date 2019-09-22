@@ -63,14 +63,43 @@ public class SysMenuSeriveImpl implements SysMenuService {
 			throw new IllegalArgumentException("保存对象不能为空");
 		if(StringUtils.isEmpty(sysMenu.getName())) 
 			throw new IllegalArgumentException("菜单名不能为空");
-		if(StringUtils.isEmpty(sysMenu.getPermission()))
-			throw new IllegalArgumentException("授权标识不能为空");
 		if (StringUtils.isEmpty(sysMenu.getUrl()))
 			throw new IllegalArgumentException("菜单URL不能为空");
+		if(StringUtils.isEmpty(sysMenu.getPermission()))
+			throw new IllegalArgumentException("授权标识不能为空");
+		if(StringUtils.isEmpty(sysMenu.getSort()))
+			throw new IllegalArgumentException("排序号不能为空");
+		
 		//保存菜单对象
 		int rows=0;
 		try {
 			rows = sysMenuDao.insertObject(sysMenu);
+		} catch (Throwable e) {
+			log.error(e.getMessage());//log是日志对象,添加@Slf4j后可以直接使用
+			//send msg
+			throw new ServiceException("系统维护中");
+		}
+		//返回结果
+		return rows;
+	}
+
+	@Override
+	public int updateObject(SysMenu sysMenu) {
+		//1.参数校验
+		if(sysMenu==null)
+			throw new IllegalArgumentException("保存对象不能为空");
+		if(StringUtils.isEmpty(sysMenu.getName())) 
+			throw new IllegalArgumentException("菜单名不能为空");
+		if(StringUtils.isEmpty(sysMenu.getPermission()))
+			throw new IllegalArgumentException("授权标识不能为空");
+		if (StringUtils.isEmpty(sysMenu.getUrl()))
+			throw new IllegalArgumentException("菜单URL不能为空");
+		if(StringUtils.isEmpty(sysMenu.getSort()))
+			throw new IllegalArgumentException("排序号不能为空");
+		//保存菜单对象
+		int rows=0;
+		try {
+			rows = sysMenuDao.updateObject(sysMenu);
 		} catch (Throwable e) {
 			log.error(e.getMessage());//log是日志对象,添加@Slf4j后可以直接使用
 			//send msg

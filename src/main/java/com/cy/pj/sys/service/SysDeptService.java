@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.cy.pj.common.vo.Node;
-import com.cy.pj.sys.entity.SysMenu;
+import com.cy.pj.sys.entity.SysDept;
 
-public interface SysMenuService {
+public interface SysDeptService {
 	List<Map<String, Object>> findObjects();
 	int deleteObject(Integer id);
 	List<Node> findZtreeMenuNodes();
-	int saveObject(SysMenu sysMenu);
-	int updateObject(SysMenu sysMenu);
+	int saveObject(SysDept sysDept);
+	int updateObject(SysDept sysDept);
 }

@@ -30,4 +30,11 @@
 		values
 		(#{name},#{url},#{type},#{sort},#{note},#{parentId},#{permission},now(),now(),#{createdUser},#{modifiedUser})
 	</insert>
+	
+	<!-- 更新菜单信息 -->
+	<update id="updateObject">
+		update sys_menus set
+		name=#{name},url=#{url},type=#{type},sort=#{sort},note=#{note},parentId=#{parentId},permission=#{permission},createdTime=now(),modifiedTime=now(),createdUser=#{createdUser},modifiedUser=#{modifiedUser}
+		where id=#{id}
+	</update>
 </mapper>
