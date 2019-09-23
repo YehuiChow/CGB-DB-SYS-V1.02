@@ -120,6 +120,7 @@ function doDeleteObject(){
 		alert("请先选择一条记录");
 		return;
 	}
+	if(!confirm("确定删除吗"))return;
 	var params={"id":id};
 	//3.post
 	$.post(url,params,function(result){
