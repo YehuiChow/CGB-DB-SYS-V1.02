@@ -26,6 +26,6 @@
 	
 	<!-- 基于角色id删除数据 -->
 	<delete id="deleteObjectsByRoleId">
-		delete from sys_roles where roleId=#{roleId}
+		delete from sys_roles where id=#{roleId}
 	</delete>
 </mapper>
