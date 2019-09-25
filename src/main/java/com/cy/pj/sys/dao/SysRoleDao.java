@@ -8,6 +8,7 @@ import com.cy.pj.sys.entity.SysRole;
 
 @Mapper
 public interface SysRoleDao {
-	int getRowCount(@Param("username")String username);
-	List<SysRole> findPageObjects(@Param("username")String username,@Param("startIndex")Integer startIndex,@Param("pageSize")Integer pageSize);
+	int getRowCount(@Param("name")String name);
+	List<SysRole> findPageObjects(@Param("name")String name,@Param("startIndex")Integer startIndex,@Param("pageSize")Integer pageSize);
+	int deleteObjectsByRoleId(@Param("roleId")Integer roleId);
 }

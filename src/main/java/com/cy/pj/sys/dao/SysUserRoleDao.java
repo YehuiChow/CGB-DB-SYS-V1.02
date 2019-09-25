@@ -4,5 +4,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SysUserRoleDao {
-	int deleteObjectsByRoleId();
+	/**
+	 * 	基于角色id删除关系数据
+	 * @param role
+	 * @return
+	 */
+	int deleteObjectsByRoleId(Integer roleId);
 }

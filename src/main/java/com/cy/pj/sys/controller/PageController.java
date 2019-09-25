@@ -18,7 +18,7 @@ public class PageController {
 //		return "sys/log_list";
 //	}
 	/**返回列表页面通用方法定义*/
-	//使用{ }占位,具体值由浏览器发送异步请求的url确定,例如"log/log_list",那么{module}为log,{moduleUI}为log_list
+	//使用{ }占位,具体值由浏览器发送请求的url确定,例如"log/log_list",那么{module}为log,{moduleUI}为log_list
 	@RequestMapping("{module}/{moduleUI}")
 	public String doListUI(@PathVariable String moduleUI) {
 		return "sys/"+moduleUI;

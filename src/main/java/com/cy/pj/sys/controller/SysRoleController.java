@@ -1,6 +1,5 @@
 package com.cy.pj.sys.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +16,16 @@ public class SysRoleController {
 	
 	@Autowired
 	private SysRoleService sysRoleService;
+	
 	@RequestMapping("doFindPageObjects")
-	public JsonResult dofindPageObjects(String username,Integer pageCurrent) {
-		PageObject<SysRole> pageObject = sysRoleService.findPageObjects(username, pageCurrent);
-		return null;
+	public JsonResult dofindPageObjects(String name,Integer pageCurrent) {
+		PageObject<SysRole> pageObject = sysRoleService.findPageObjects(name, pageCurrent);
+		return new JsonResult(pageObject);
+	}
+	
+	@RequestMapping("doDeleteObject")
+	public JsonResult doDeleteObject(Integer id) {
+		sysRoleService.deleteObjectsByRoleId(id);
+		return new JsonResult("delete ok");
 	}
 }

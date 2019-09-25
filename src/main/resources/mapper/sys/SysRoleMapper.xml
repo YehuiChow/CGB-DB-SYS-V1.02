@@ -5,8 +5,8 @@
 	<!-- sql元素用于对其它元素中的共性进行提取,其它元素用到此元素内容,可以使用include元素进行包含 -->
 	<sql id="queryWhereId">
 		<where>
-			<if test="username!=null and username!=''">
-				username like concat("%",#{username},"%")
+			<if test="name!=null and name!=''">
+				name like concat("%",#{name},"%")
 			</if>
 		</where>
 	</sql>
@@ -23,4 +23,9 @@
 		<include refid="queryWhereId"/>
 		order by createdTime desc limit #{startIndex},#{pageSize}
 	</select>
+	
+	<!-- 基于角色id删除数据 -->
+	<delete id="deleteObjectsByRoleId">
+		delete from sys_roles where roleId=#{roleId}
+	</delete>
 </mapper>

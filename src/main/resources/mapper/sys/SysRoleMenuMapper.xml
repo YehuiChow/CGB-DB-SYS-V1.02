@@ -8,4 +8,8 @@
 		delete from sys_role_menus where id=#{menuId}
 	</delete>
 	
+	<!-- 基于角色id删除关系数据 -->
+	<delete id="deleteObjectsByRoleId" parameterType="int">
+		delete from sys_role_menus where id=#{roleId}
+	</delete>
 </mapper>
