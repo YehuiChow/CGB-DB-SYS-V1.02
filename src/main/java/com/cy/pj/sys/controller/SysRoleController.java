@@ -22,10 +22,30 @@ public class SysRoleController {
 		PageObject<SysRole> pageObject = sysRoleService.findPageObjects(name, pageCurrent);
 		return new JsonResult(pageObject);
 	}
-	
+	 
 	@RequestMapping("doDeleteObject")
 	public JsonResult doDeleteObject(Integer id) {
 		sysRoleService.deleteObjectsByRoleId(id);
 		return new JsonResult("delete ok");
 	}
+	
+	@RequestMapping("doFindObjectById")
+	public JsonResult doFindObjectById(Integer id) {
+		SysRole sysRole = sysRoleService.findObjectById(id);
+		return new JsonResult(sysRole);
+	}
+	
+	@RequestMapping("doSaveObject")
+	public JsonResult doSaveObject(SysRole sysRole) {
+		sysRoleService.saveObject(sysRole);
+		return new JsonResult("save ok");
+	}
+	
+	@RequestMapping("doUpdateObject")
+	public JsonResult doUpdateObject(SysRole sysRole) {
+		sysRoleService.updateObjectById(sysRole);
+		return new JsonResult("update ok");
+	}
+	
+
 }

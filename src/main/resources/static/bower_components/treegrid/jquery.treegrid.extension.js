@@ -66,7 +66,7 @@
         };
         // 绘制行
         target.renderRow = function(tr,item){
-        	debugger
+//        	debugger
         	tr.data("rowData",item);//item当前行记录
             $.each(options.columns, function(index, column) {
                 // 判断有没有选择列

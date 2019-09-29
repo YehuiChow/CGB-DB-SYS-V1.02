@@ -28,4 +28,24 @@
 	<delete id="deleteObjectsByRoleId">
 		delete from sys_roles where id=#{roleId}
 	</delete>
+	
+	<!-- 基于角色id查询数据 -->
+	<select id="findObjectById" resultType="com.cy.pj.sys.entity.SysRole">
+		select * from sys_roles where id=#{id}
+	</select>
+	
+	<!-- 新建数据 -->
+	<insert id="saveObject">
+		insert sys_roles
+		(name,note,createdTime,modifiedTime,createdUser,modifiedUser)
+		value (#{name},#{note},#{createdTime},#{modifiedTime},#{createdUser},#{modifiedUser})
+	</insert>
+	
+	<!-- 基于角色id更新数据 -->
+	<update id="updateObjectById">
+		update sys_roles set
+		name=#{name},note={note},createdTime=#{createdTime},modifiedTime=#{modifiedTime},createdUser=#{createdUser},modifiedUser=#{modifiedUser}
+		where id=#{id}
+	</update>
+	
 </mapper>

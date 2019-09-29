@@ -22,7 +22,7 @@ public class SysRoleServiceImpl implements SysRoleService{
 	private SysRoleMenuDao sysRoleMenuDao;
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
-
+	
 	@Override
 	public PageObject<SysRole> findPageObjects(String name, Integer pageCurrent) {
 		//1.对参数进行校验
@@ -55,6 +55,27 @@ public class SysRoleServiceImpl implements SysRoleService{
 			throw new ServiceException("记录可能已经不存在");
 		//3.返回结果
 		return rows;
+	}
+
+	@Override
+	public SysRole findObjectById(Integer id) {
+		//1.参数校验
+		if (id==null) 
+			throw new ServiceException("参数值不存在");
+		//2.执行查询并返回结果
+		return sysRoleDao.findObjectById(id);
+	}
+
+	@Override
+	public SysRole saveObject(SysRole sysRole) {
+		//1.参数校验
+		return null;
+	}
+
+	@Override
+	public SysRole updateObjectById(SysRole sysRole) {
+		
+		return null;
 	}
 
 
