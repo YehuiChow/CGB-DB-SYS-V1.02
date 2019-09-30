@@ -35,16 +35,19 @@
 	</select>
 	
 	<!-- 新建数据 -->
-	<insert id="saveObject">
+	<!-- 1)useGeneratedKeys表示最后要获取insert操作的主键值
+		 2)keyProperty表示要将获取的主键值赋值给参数对象的哪属性
+	 -->
+	<insert id="saveObject" useGeneratedKeys="true" keyProperty="id">
 		insert sys_roles
 		(name,note,createdTime,modifiedTime,createdUser,modifiedUser)
-		value (#{name},#{note},#{createdTime},#{modifiedTime},#{createdUser},#{modifiedUser})
+		values(#{name},#{note},now(),now(),#{createdUser},#{modifiedUser})
 	</insert>
 	
 	<!-- 基于角色id更新数据 -->
 	<update id="updateObjectById">
 		update sys_roles set
-		name=#{name},note={note},createdTime=#{createdTime},modifiedTime=#{modifiedTime},createdUser=#{createdUser},modifiedUser=#{modifiedUser}
+		name=#{name},note={note},createdTime=now(),modifiedTime=now(),createdUser=#{createdUser},modifiedUser=#{modifiedUser}
 		where id=#{id}
 	</update>
 	

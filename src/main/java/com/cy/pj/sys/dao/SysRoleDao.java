@@ -12,6 +12,6 @@ public interface SysRoleDao {
 	List<SysRole> findPageObjects(@Param("name")String name,@Param("startIndex")Integer startIndex,@Param("pageSize")Integer pageSize);
 	int deleteObjectsByRoleId(@Param("roleId")Integer roleId);
 	SysRole findObjectById(Integer id);
-	SysRole saveObject();
-	SysRole updateObjectById(Integer id);
+	int saveObject(SysRole sysRole);
+	int updateObjectById(SysRole sysRole);
 }

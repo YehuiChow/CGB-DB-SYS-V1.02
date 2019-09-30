@@ -1,6 +1,7 @@
 package com.cy.pj.sys.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface SysRoleMenuDao {
@@ -17,5 +18,13 @@ public interface SysRoleMenuDao {
 	 * @return
 	 */
 	int deleteObjectsByRoleId(Integer roleId);
+	
+	/**
+	 *	 保存角色和菜单的关系数据
+	 * @param roleId
+	 * @param menuIds
+	 * @return
+	 */
+	int insertObjects(@Param("roleId")Integer roleId,@Param("menuId")Integer[] menuIds);
 	
 }

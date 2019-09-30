@@ -67,15 +67,15 @@ public class SysRoleServiceImpl implements SysRoleService{
 	}
 
 	@Override
-	public SysRole saveObject(SysRole sysRole) {
+	public int saveObject(SysRole sysRole) {
 		//1.参数校验
-		return null;
+		return 0;
 	}
 
 	@Override
-	public SysRole updateObjectById(SysRole sysRole) {
+	public int updateObjectById(SysRole sysRole) {
 		
-		return null;
+		return 0;
 	}
 
 

@@ -10,6 +10,6 @@ public interface SysRoleService {
 	PageObject<SysRole> findPageObjects(@Param("username")String username,@Param("pageCurrent")Integer pageCurrent);
 	int deleteObjectsByRoleId(@Param("roleId")Integer roleId);
 	SysRole findObjectById(Integer id);
-	SysRole saveObject(SysRole sysRole);
-	SysRole updateObjectById(SysRole sysRole);
+	int saveObject(SysRole sysRole);
+	int updateObjectById(SysRole sysRole);
 }
