@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class PageObject<T> implements Serializable{
 
+	
 	private static final long serialVersionUID = 1684876792546164773L;
 	/**当前页的页码值*/
 	private Integer pageCurrent=1;
