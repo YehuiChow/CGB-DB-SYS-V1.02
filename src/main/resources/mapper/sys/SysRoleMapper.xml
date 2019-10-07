@@ -29,10 +29,16 @@
 		delete from sys_roles where id=#{roleId}
 	</delete>
 	
+	<!-- resultMap一般用于自定义映射或一些关联查询中 -->
+	<resultMap type="com.cy.pj.sys.vo.SysRoleMenuVo" id="sysRoleMenuVo">
+		<collection property="menuIds" select="com.cy.pj.sys.dao.SysRoleMenuDao.findMenuIdsByRoleId" column="id"></collection>
+	</resultMap>
+	
 	<!-- 基于角色id查询数据 -->
-	<select id="findObjectById" resultType="com.cy.pj.sys.entity.SysRole">
-		select * from sys_roles where id=#{id}
+	<select id="findObjectById" resultMap="sysRoleMenuVo">
+		select id,name,note from sys_roles where id=#{id}
 	</select>
+
 	
 	<!-- 新建数据 -->
 	<!-- 1)useGeneratedKeys表示最后要获取insert操作的主键值
@@ -45,9 +51,12 @@
 	</insert>
 	
 	<!-- 基于角色id更新数据 -->
-	<update id="updateObjectById">
-		update sys_roles set
-		name=#{name},note={note},createdTime=now(),modifiedTime=now(),createdUser=#{createdUser},modifiedUser=#{modifiedUser}
+	<update id="updateObject">
+		update sys_roles
+		set name=#{name},
+			note=#{note},
+			modifiedTime=now(),
+			modifiedUser=#{modifiedUser}
 		where id=#{id}
 	</update>
 	

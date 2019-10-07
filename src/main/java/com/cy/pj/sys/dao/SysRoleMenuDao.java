@@ -25,6 +25,6 @@ public interface SysRoleMenuDao {
 	 * @param menuIds
 	 * @return
 	 */
-	int insertObjects(@Param("roleId")Integer roleId,@Param("menuId")Integer[] menuIds);
+	int insertObjects(@Param("roleId")Integer roleId,@Param("menuIds")Integer[] menuIds);
 	
 }

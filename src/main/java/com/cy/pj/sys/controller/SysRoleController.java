@@ -31,19 +31,18 @@ public class SysRoleController {
 	
 	@RequestMapping("doFindObjectById")
 	public JsonResult doFindObjectById(Integer id) {
-		SysRole sysRole = sysRoleService.findObjectById(id);
-		return new JsonResult(sysRole);
+		return new JsonResult(sysRoleService.findObjectById(id));
 	}
 	
 	@RequestMapping("doSaveObject")
-	public JsonResult doSaveObject(SysRole sysRole) {
-		sysRoleService.saveObject(sysRole);
+	public JsonResult doSaveObject(SysRole entity,Integer[] menuIds) {
+		sysRoleService.saveObject(entity,menuIds);
 		return new JsonResult("save ok");
 	}
 	
 	@RequestMapping("doUpdateObject")
-	public JsonResult doUpdateObject(SysRole sysRole) {
-		sysRoleService.updateObjectById(sysRole);
+	public JsonResult doUpdateObject(SysRole entity,Integer[] menuIds) {
+		sysRoleService.updateObject(entity,menuIds);
 		return new JsonResult("update ok");
 	}
 	

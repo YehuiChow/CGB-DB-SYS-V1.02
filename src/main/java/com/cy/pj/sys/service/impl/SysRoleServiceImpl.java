@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.PageObject;
@@ -13,6 +14,7 @@ import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.service.SysRoleService;
+import com.cy.pj.sys.vo.SysRoleMenuVo;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService{
@@ -22,7 +24,7 @@ public class SysRoleServiceImpl implements SysRoleService{
 	private SysRoleMenuDao sysRoleMenuDao;
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
-	
+
 	@Override
 	public PageObject<SysRole> findPageObjects(String name, Integer pageCurrent) {
 		//1.对参数进行校验
@@ -58,24 +60,54 @@ public class SysRoleServiceImpl implements SysRoleService{
 	}
 
 	@Override
-	public SysRole findObjectById(Integer id) {
+	public SysRoleMenuVo findObjectById(Integer id) {
 		//1.参数校验
-		if (id==null) 
+		if (id==null||id<1) 
 			throw new ServiceException("参数值不存在");
 		//2.执行查询并返回结果
-		return sysRoleDao.findObjectById(id);
+		SysRoleMenuVo rm = sysRoleDao.findObjectById(id);
+		if (rm == null) 
+			throw new IllegalArgumentException("记录已经不存在");
+		return rm;
 	}
 
 	@Override
-	public int saveObject(SysRole sysRole) {
+	public int saveObject(SysRole sysRole,Integer[] menuIds) {
 		//1.参数校验
-		return 0;
+		if (sysRole==null) 
+			throw new IllegalArgumentException("保存对象不能为空");
+		if (StringUtils.isEmpty(sysRole.getName()))
+			throw new IllegalArgumentException("角色名不允许为空");
+		if (menuIds == null || menuIds.length == 0)
+			throw new IllegalArgumentException("需要为角色分配菜单权限");
+		//2.保存数据
+		//2.1保存角色自身信息
+		int rows = sysRoleDao.saveObject(sysRole);
+		//2.2保存角色和菜单关系数据
+		sysRoleMenuDao.insertObjects(sysRole.getId(), menuIds);
+		//3.返回结果
+		return rows;
 	}
 
 	@Override
-	public int updateObjectById(SysRole sysRole) {
-		
-		return 0;
+	public int updateObject(SysRole sysRole,Integer[] menuIds) {
+		//1.参数校验
+		if (sysRole==null) 
+			throw new IllegalArgumentException("保存对象不能为空");
+		if (StringUtils.isEmpty(sysRole.getName()))
+			throw new IllegalArgumentException("角色名不允许为空");
+		if (menuIds == null || menuIds.length == 0)
+			throw new IllegalArgumentException("需要为角色分配菜单权限");
+		//2.保存数据
+		//2.1保存角色自身信息
+		int rows = sysRoleDao.updateObject(sysRole);
+		//2.2更新角色和菜单关系数据
+		//2.2.1删除关系数据
+		sysRoleMenuDao.deleteObjectsByRoleId(sysRole.getId());
+		//2.2.2添加新的关系数据
+		sysRoleMenuDao.insertObjects(sysRole.getId(), menuIds);
+		//3.返回结果
+		return rows;
 	}
 
 
