@@ -11,11 +11,13 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<resultMap type="com.cy.pj.sys.vo.SysUserDeptVo" id="sysUserDeptVo">
+		<!-- association一般用于many2one或one2one做关联查询 ,collection一般用于one2many-->
+		<!-- 基于deptId(id="findPageObjects"查询所得)查询部门信息,并将其存储到SysUserDeptVo对象的sysDept属性中 -->
 		<association property="sysDept" column="deptId" select="com.cy.pj.sys.dao.SysDeptDao.findObjects"></association>
 	</resultMap>
-	<!-- 查询当前页记录,resultType的值为一行记录要映射的结果类型 -->
+	<!-- 查询当前页记录-->
 	<select id="findPageObjects" resultMap="sysUserDeptVo">
 		select * from sys_users
 		<include refid="queryWhereId"/>
