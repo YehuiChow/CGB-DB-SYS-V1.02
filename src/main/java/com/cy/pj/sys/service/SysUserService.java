@@ -11,4 +11,8 @@ public interface SysUserService {
 	 * @return
 	 */
 	PageObject<SysUserDeptVo> findPageObjects(String username,Integer pageCurrent);
+
+	Integer doValidById(Integer id, Integer valid,String modifiedUser);
+
+	SysUserDeptVo findObjectById(Integer id);
 }

@@ -17,4 +17,15 @@ public class SysUserController {
 	public JsonResult doFindPageObjects(String username,Integer pageCurrent) {
 		return new JsonResult(sysUserService.findPageObjects(username, pageCurrent));
 	}
+	@RequestMapping("doValidById")
+	public JsonResult doValidById(Integer id,Integer valid) {
+		sysUserService.doValidById(id,valid,"admin");
+		String result = valid==0?"禁用":"启用";
+		return new JsonResult("用户"+result+"成功");
+	}
+	
+	@RequestMapping("doFindObjectById")
+	public JsonResult doFindObjectById(Integer id) {
+		return new JsonResult(sysUserService.findObjectById(id));
+	}
 }

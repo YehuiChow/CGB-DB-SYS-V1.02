@@ -30,5 +30,23 @@ public class SysUserServiceImpl implements SysUserService {
 		//4.对查询结果进行封装并返回
 		return new PageObject<>(pageCurrent, pageSize, rowCount, records);
 	}
+	@Override
+	public Integer doValidById(Integer id, Integer valid,String modifiedUser) {
+		//1.参数校验
+		if(id == null || id<1)
+			throw new IllegalArgumentException("用户不存在");
+		if(valid!=0 && valid!=1 )
+			throw new IllegalArgumentException("该用户状态信息出错");
+		//2.修改禁用/启用信息
+		int row = sysUserDao.updateValidById(id,valid,modifiedUser);
+		if (row == 0)
+			throw new IllegalArgumentException("用户可能已经不存在");
+		return row;
+	}
+	@Override
+	public SysUserDeptVo findObjectById(Integer id) {
+		SysUserDeptVo sysUserDeptVo = sysUserDao.findObjectById(id);
+		return sysUserDeptVo;
+	}
 	
 }

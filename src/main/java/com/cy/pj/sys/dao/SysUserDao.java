@@ -22,4 +22,6 @@ public interface SysUserDao {
 	 * @return
 	 */
 	List<SysUserDeptVo> findPageObjects(@Param("username")String username,@Param("startIndex")Integer startIndex,@Param("pageSize")Integer pageSize);
+	int updateValidById(@Param("id")Integer id, @Param("valid")Integer valid,@Param("modifiedUser")String modifiedUser);
+	SysUserDeptVo findObjectById(Integer id);
 }
