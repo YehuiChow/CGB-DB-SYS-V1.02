@@ -41,8 +41,22 @@
 	</update>
 	
 	<!-- 根据id查询用户信息 -->
-	<select id="findObjectById" resultType="com.cy.pj.sys.vo.SysUserDeptVo">
+	<select id="findObjectById" resultMap="sysUserDeptVo">
 		select * from sys_users where id=#{id}
 	</select>
-
+	
+	<!-- 保存用户信息 -->
+	<insert id="insertObject" parameterType="com.cy.pj.sys.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_users
+			(username,password,salt,email,mobile,valid,deptId,createdTime,modifiedTime,createdUser,modifiedUser)
+		values 
+			(#{username},#{password},#{salt},#{email},#{mobile},#{valid},#{deptId},now(),now(),#{createdUser},#{modifiedUser})	
+	</insert>
+	
+	<!-- 更新用户信息 -->
+	<update id="updateObject">
+		update sys_users
+		set username=#{username},password=#{password},salt=#{salt},email=#{email},mobile=#{mobile},valid=#{valid},deptId=#{deptId},modifiedTime=now()
+		where id=#{id}
+	</update>
 </mapper>

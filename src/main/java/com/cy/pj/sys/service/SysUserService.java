@@ -1,6 +1,9 @@
 package com.cy.pj.sys.service;
 
+import java.util.Map;
+
 import com.cy.pj.common.vo.PageObject;
+import com.cy.pj.sys.entity.SysUser;
 import com.cy.pj.sys.vo.SysUserDeptVo;
 
 public interface SysUserService {
@@ -14,5 +17,10 @@ public interface SysUserService {
 
 	Integer doValidById(Integer id, Integer valid,String modifiedUser);
 
-	SysUserDeptVo findObjectById(Integer id);
+	Map<String, Object> findObjectById(Integer id);
+	
+	int saveObject(SysUser sysUser,Integer[] roleIds);
+
+	int updateObject(SysUser entity, Integer[] roleIds);
+	
 }

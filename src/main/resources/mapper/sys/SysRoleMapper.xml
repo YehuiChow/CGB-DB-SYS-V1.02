@@ -60,4 +60,9 @@
 		where id=#{id}
 	</update>
 	
+	<!-- 查找所有角色的id和name -->
+	<select id="findRoles" resultType="com.cy.pj.common.vo.CheckBox">
+		select id,name from sys_roles
+	</select>
+	
 </mapper>

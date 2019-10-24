@@ -1,12 +1,20 @@
 package com.cy.pj.sys.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.PageObject;
 import com.cy.pj.sys.dao.SysUserDao;
+import com.cy.pj.sys.dao.SysUserRoleDao;
+import com.cy.pj.sys.entity.SysUser;
 import com.cy.pj.sys.service.SysUserService;
 import com.cy.pj.sys.vo.SysUserDeptVo;
 
@@ -14,6 +22,8 @@ import com.cy.pj.sys.vo.SysUserDeptVo;
 public class SysUserServiceImpl implements SysUserService {
 	@Autowired
 	private SysUserDao sysUserDao;
+	@Autowired
+	private SysUserRoleDao sysUserRoleDao;
 	@Override
 	public PageObject<SysUserDeptVo> findPageObjects(String username, Integer pageCurrent) {
 		//1.参数校验
@@ -44,9 +54,66 @@ public class SysUserServiceImpl implements SysUserService {
 		return row;
 	}
 	@Override
-	public SysUserDeptVo findObjectById(Integer id) {
+	public Map<String , Object> findObjectById(Integer id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//1.参数校验
+		if (id == null || id < 1)
+			throw new IllegalArgumentException("用户不存在");
+		//2.根据用户id查询用户信息
 		SysUserDeptVo sysUserDeptVo = sysUserDao.findObjectById(id);
-		return sysUserDeptVo;
+		if (sysUserDeptVo == null) 
+			throw new IllegalArgumentException("用户信息可能已经不存在");
+		//3.根据用户id查询角色id
+		Integer[] roleIds = sysUserRoleDao.findRoleIdsByUserId(sysUserDeptVo.getId());
+		map.put("user", sysUserDeptVo);
+		map.put("roleIds", roleIds);
+		//3.返回结果
+		return map;
+	}
+	@Override
+	public int saveObject(SysUser sysUser, Integer[] roleIds) {
+		//1.参数校验
+		if (sysUser == null)
+			throw new ServiceException("保存对象不能为空");
+		if (StringUtils.isEmpty(sysUser.getUsername()))
+			throw new ServiceException("用户名不能为空");
+		if (StringUtils.isEmpty(sysUser.getPassword()))
+			throw new ServiceException("密码不能为空");
+		if (StringUtils.isEmpty(sysUser.getDeptId()))
+			throw new ServiceException("请选择所属部门");
+		if (StringUtils.isEmpty(sysUser.getEmail()))
+			throw new ServiceException("邮箱不能为空");
+		if (StringUtils.isEmpty(sysUser.getMobile()))
+			throw new ServiceException("手机号不能为空");
+		if (roleIds == null || roleIds.length == 0) 
+			throw new ServiceException("请选择角色");
+		//2.保存用户自身信息
+		//2.1对密码进行加密
+		String source = sysUser.getPassword();
+		String salt = UUID.randomUUID().toString();
+		//shiro框架
+		SimpleHash sh = new SimpleHash("MD5",//算法名称
+										source,//原密码
+										salt,//盐值
+										1);//加密次数
+		sysUser.setSalt(salt);
+		sysUser.setPassword(sh.toHex());
+		int rows;
+		try {
+			rows = sysUserDao.insertObject(sysUser);
+			//3.保存用户角色关系数据
+			sysUserRoleDao.insertObjects(sysUser.getId(), roleIds);
+		} catch (Exception e) {
+			throw new ServiceException("用户已存在");
+		}
+		//3.返回结果
+		return rows;
+	}
+	@Override
+	public int updateObject(SysUser entity, Integer[] roleIds) {
+		int rows = sysUserDao.updateObject(entity);
+		sysUserRoleDao.updateObjects(entity.getId(),roleIds);
+		return rows;
 	}
 	
 }

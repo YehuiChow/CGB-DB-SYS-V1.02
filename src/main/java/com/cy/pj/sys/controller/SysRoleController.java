@@ -46,5 +46,10 @@ public class SysRoleController {
 		return new JsonResult("update ok");
 	}
 	
+	@RequestMapping("doFindRoles")
+	public JsonResult doFindRoles() {
+		return new JsonResult(sysRoleService.findRoles());
+	}
+	
 
 }

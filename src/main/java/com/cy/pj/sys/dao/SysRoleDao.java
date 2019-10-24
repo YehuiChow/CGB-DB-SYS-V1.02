@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.cy.pj.common.vo.CheckBox;
 import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.vo.SysRoleMenuVo;
 
@@ -15,4 +17,5 @@ public interface SysRoleDao {
 	SysRoleMenuVo findObjectById(Integer id);
 	int saveObject(SysRole sysRole);
 	int updateObject(SysRole sysRole);
+	List<CheckBox> findRoles();
 }
