@@ -15,6 +15,8 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/pages/
     suffix: .html
+  aop:
+    proxy-target-class: false #true为CGLIB代理,false为JDK代理,不配置默认为CGLIB代理
 
 #mybatis
 mybatis:

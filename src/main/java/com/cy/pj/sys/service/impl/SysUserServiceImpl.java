@@ -101,18 +101,37 @@ public class SysUserServiceImpl implements SysUserService {
 		int rows;
 		try {
 			rows = sysUserDao.insertObject(sysUser);
-			//3.保存用户角色关系数据
-			sysUserRoleDao.insertObjects(sysUser.getId(), roleIds);
 		} catch (Exception e) {
-			throw new ServiceException("用户已存在");
+			throw new ServiceException("该用户名已被占用");
 		}
+		//3.保存用户角色关系数据
+		sysUserRoleDao.insertObjects(sysUser.getId(), roleIds);
 		//3.返回结果
 		return rows;
 	}
 	@Override
-	public int updateObject(SysUser entity, Integer[] roleIds) {
-		int rows = sysUserDao.updateObject(entity);
-		sysUserRoleDao.updateObjects(entity.getId(),roleIds);
+	public int updateObject(SysUser sysUser, Integer[] roleIds) {
+		//1.参数校验
+		if (sysUser == null)
+			throw new ServiceException("保存对象不能为空");
+		if (StringUtils.isEmpty(sysUser.getUsername()))
+			throw new ServiceException("用户名不能为空");
+		if (StringUtils.isEmpty(sysUser.getDeptId()))
+			throw new ServiceException("请选择所属部门");
+		if (StringUtils.isEmpty(sysUser.getEmail()))
+			throw new ServiceException("邮箱不能为空");
+		if (StringUtils.isEmpty(sysUser.getMobile()))
+			throw new ServiceException("手机号不能为空");
+		if (roleIds == null || roleIds.length == 0) 
+			throw new ServiceException("请选择角色");
+		int rows;
+		try {
+			rows = sysUserDao.updateObject(sysUser);
+		} catch (Exception e) {
+			throw new ServiceException("该用户名已被占用");
+		}
+		sysUserRoleDao.deleteObjectsByUserId(sysUser.getId());
+		sysUserRoleDao.insertObjects(sysUser.getId(), roleIds);
 		return rows;
 	}
 	

@@ -17,7 +17,7 @@ import com.cy.pj.sys.service.SysMenuService;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j//添加日志
 @Service
-public class SysMenuSeriveImpl implements SysMenuService {
+public class SysMenuServiceImpl implements SysMenuService {
 	
 	@Autowired
 	private SysMenuDao sysMenuDao;

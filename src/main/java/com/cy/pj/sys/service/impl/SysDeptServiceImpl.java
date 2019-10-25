@@ -16,7 +16,7 @@ import com.cy.pj.sys.service.SysDeptService;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j//添加日志
 @Service
-public class SysDeptSeriveImpl implements SysDeptService {
+public class SysDeptServiceImpl implements SysDeptService {
 	
 	@Autowired
 	private SysDeptDao sysDeptDao;

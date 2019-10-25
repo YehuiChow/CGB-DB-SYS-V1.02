@@ -21,5 +21,7 @@ public interface SysUserRoleDao {
 	
 	Integer[] findRoleIdsByUserId(Integer userId) ;
 	int updateObjects(@Param("id")Integer id, @Param("roleIds")Integer[] roleIds);
+	int deleteObjectsByUserId(Integer userId);
+	
 	
 }
