@@ -33,4 +33,6 @@ public interface SysLogDao {
 	 * @return
 	 */
 	int deleteObjects(@Param("ids")Integer...ids);
+	
+	int insertObject(SysLog sysLog);
 }

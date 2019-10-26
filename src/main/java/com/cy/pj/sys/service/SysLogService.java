@@ -19,4 +19,6 @@ public interface SysLogService {
 	 * @return
 	 */
 	int deleteObjects(@Param("ids")Integer...ids);
+	
+	int saveObject(SysLog sysLog);
 }

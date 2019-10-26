@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.CheckBox;
 import com.cy.pj.common.vo.PageObject;
@@ -25,7 +26,7 @@ public class SysRoleServiceImpl implements SysRoleService{
 	private SysRoleMenuDao sysRoleMenuDao;
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
-
+	
 	@Override
 	public PageObject<SysRole> findPageObjects(String name, Integer pageCurrent) {
 		//1.对参数进行校验
@@ -59,7 +60,7 @@ public class SysRoleServiceImpl implements SysRoleService{
 		//3.返回结果
 		return rows;
 	}
-
+	
 	@Override
 	public SysRoleMenuVo findObjectById(Integer id) {
 		//1.参数校验

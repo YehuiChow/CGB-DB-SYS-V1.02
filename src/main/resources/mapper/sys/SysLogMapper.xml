@@ -35,4 +35,12 @@
 			</foreach>
 		</where>
 	</delete>
+	
+	<!-- 插入日志记录 -->
+	<insert id="insertObject">
+		insert into sys_logs
+		(ip,username,operation,method,params,time,createdTime)
+		values
+		(#{ip},#{username},#{operation},#{method},#{params},#{time},now())
+	</insert>
 </mapper>

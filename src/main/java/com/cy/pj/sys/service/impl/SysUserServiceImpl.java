@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.PageObject;
 import com.cy.pj.sys.dao.SysUserDao;
@@ -40,6 +41,8 @@ public class SysUserServiceImpl implements SysUserService {
 		//4.对查询结果进行封装并返回
 		return new PageObject<>(pageCurrent, pageSize, rowCount, records);
 	}
+	
+	@RequiredLog("禁用启用")
 	@Override
 	public Integer doValidById(Integer id, Integer valid,String modifiedUser) {
 		//1.参数校验

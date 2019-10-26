@@ -42,5 +42,11 @@ public class SysLogServiceImpl implements SysLogService {
 		//3.返回结果
 		return rows;
 	}
+	
+	@Override
+	public int saveObject(SysLog sysLog) {
+		int rows = sysLogDao.insertObject(sysLog);
+		return rows;
+	}
 
 }
