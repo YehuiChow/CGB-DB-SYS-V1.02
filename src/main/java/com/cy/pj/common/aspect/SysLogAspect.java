@@ -66,7 +66,7 @@ public class SysLogAspect {
 		String operation = requiredLog.value();
 		//获取目标方法名(目标类型+方法名)
 		String targetClsName = targetCls.getName();
-		String targetObjectMethodNameString = targetClsName + "." + ms.getName();
+		String targetObjectMethodName = targetClsName + "." + ms.getName();
 		//获取请求参数
 		String targetMethodParams = Arrays.toString(jp.getArgs());
 		//2.封装用户行为日志(SysLog)
@@ -74,7 +74,7 @@ public class SysLogAspect {
 		sysLog.setIp(IPUtils.getIpAddr());
 		sysLog.setUsername("admin");
 		sysLog.setOperation(operation);
-		sysLog.setMethod(targetObjectMethodNameString);
+		sysLog.setMethod(targetObjectMethodName);
 		sysLog.setParams(targetMethodParams);
 		sysLog.setTime(time);
 		

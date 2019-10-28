@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.Node;
 import com.cy.pj.sys.dao.SysMenuDao;
@@ -15,6 +18,7 @@ import com.cy.pj.sys.entity.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 import lombok.extern.slf4j.Slf4j;
+@Transactional(timeout = 30,rollbackFor = Throwable.class,isolation = Isolation.READ_COMMITTED)
 @Slf4j//添加日志
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
@@ -24,6 +28,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Autowired
 	private SysRoleMenuDao sysRoleMenuDao;
 	
+	@RequiredLog("查询菜单")
+	@Transactional(readOnly = true)
 	@Override
 	public List<Map<String, Object>> findObjects() {
 		List<Map<String, Object>> list = sysMenuDao.findObjects();
@@ -51,6 +57,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return rows;
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Node> findZtreeMenuNodes() {
 		return sysMenuDao.findZtreeMenuNodes();

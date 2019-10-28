@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.vo.PageObject;
@@ -11,6 +13,7 @@ import com.cy.pj.sys.dao.SysLogDao;
 import com.cy.pj.sys.entity.SysLog;
 import com.cy.pj.sys.service.SysLogService;
 @Service
+@Transactional
 public class SysLogServiceImpl implements SysLogService {
 	@Autowired
 	private SysLogDao sysLogDao;
@@ -43,6 +46,7 @@ public class SysLogServiceImpl implements SysLogService {
 		return rows;
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public int saveObject(SysLog sysLog) {
 		int rows = sysLogDao.insertObject(sysLog);

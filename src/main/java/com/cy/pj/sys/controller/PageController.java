@@ -30,4 +30,9 @@ public class PageController {
 	public String doPageUI() {
 		return "common/page";
 	}
+	
+	@RequestMapping("doLoginUI")
+	public String doLoginUI() {
+		return "login";
+	}
 }

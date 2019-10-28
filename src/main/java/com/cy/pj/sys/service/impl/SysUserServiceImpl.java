@@ -7,6 +7,9 @@ import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -25,6 +28,7 @@ public class SysUserServiceImpl implements SysUserService {
 	private SysUserDao sysUserDao;
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
+	
 	@Override
 	public PageObject<SysUserDeptVo> findPageObjects(String username, Integer pageCurrent) {
 		//1.参数校验
@@ -56,6 +60,8 @@ public class SysUserServiceImpl implements SysUserService {
 			throw new IllegalArgumentException("用户可能已经不存在");
 		return row;
 	}
+	
+	@Cacheable(value = "userCache")
 	@Override
 	public Map<String , Object> findObjectById(Integer id) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -112,6 +118,10 @@ public class SysUserServiceImpl implements SysUserService {
 		//3.返回结果
 		return rows;
 	}
+	
+	//@CachePut(value = "userCache",key = "#sysUser.id")
+	@CacheEvict(value = "userCache",key = "#sysUser.id",beforeInvocation = true)
+	@RequiredLog("修改用户")
 	@Override
 	public int updateObject(SysUser sysUser, Integer[] roleIds) {
 		//1.参数校验
