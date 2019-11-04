@@ -31,5 +31,6 @@ public interface SysUserDao {
 	int insertObject(SysUser sysUser);
 	int updateObject(SysUser entity);
 	
+	SysUser findUserByUsername(String username);
 	/**更新用户信息*/
 }

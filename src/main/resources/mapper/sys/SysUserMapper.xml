@@ -59,4 +59,8 @@
 		set username=#{username},password=#{password},salt=#{salt},email=#{email},mobile=#{mobile},valid=#{valid},deptId=#{deptId},modifiedTime=now()
 		where id=#{id}
 	</update>
+	
+	<select id="findUserByUsername" parameterType="com.cy.pj.sys.entity.SysUser">
+		select * from sys_users where username=#{username}
+	</select>
 </mapper>
