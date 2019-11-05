@@ -3,6 +3,7 @@ package com.cy.pj.common.config;
 import java.util.LinkedHashMap;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration//bean
 public class SpringShiroConfig {
 	@Bean
-	public SecurityManager securityManager() {
+	public SecurityManager securityManager(Realm realm) {
 		DefaultWebSecurityManager sManager = new DefaultWebSecurityManager();
+		sManager.setRealm(realm);
 		return sManager;
 	}
 	
@@ -34,6 +36,8 @@ public class SpringShiroConfig {
 		cMap.put("/build/**", "anon");
 		cMap.put("/dist/**", "anon");
 		cMap.put("/plugins/**", "anon");//anon表示允许匿名访问
+		cMap.put("/user/doLogin", "anon");//登录页面需要允许匿名访问
+		cMap.put("/doLogout", "logout");//logout表示退出登录,跳转到设置的登录url上
 		cMap.put("/**", "authc");///**表示排除上面的静态文件以外的所有，authc表示需要认证以后访问
 		fBean.setFilterChainDefinitionMap(cMap);
 		return fBean; 
